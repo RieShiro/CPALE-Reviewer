@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CPALE Review</title>
+<style>
+:root{--ink:#17202a;--muted:#7b8490;--line:#e5e8ec;--bg:#f6f7f9;--card:#fff;--soft:#eef1f4;--ok:#16724a;--bad:#b43b3b}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{display:flex;min-height:100vh}.sidebar{width:240px;background:#fff;border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:10px;padding:4px 9px 26px}.mark{width:34px;height:34px;border-radius:9px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800}.brand b{font-size:14px;display:block}.brand small{font-size:10px;color:var(--muted)}.nav{width:100%;border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:9px;color:#69727d;margin:2px 0}.nav.active,.nav:hover{background:#f0f2f5;color:var(--ink);font-weight:700}.privacy{margin-top:auto;background:#f4f5f7;border-radius:11px;padding:12px;font-size:11px;color:var(--muted)}.privacy b{display:block;color:#303842;margin-bottom:3px}
+.main{width:min(1180px,100%);margin:auto;padding:28px 34px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:.12em;color:#9aa1aa;margin:0 0 6px}.top h1{font-size:27px;margin:0}.exam{background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 14px;text-align:center}.exam strong{display:block;font-size:20px}.exam small{color:var(--muted)}.page{display:none}.page.active{display:block}
+.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:15px}.hero{padding:25px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:15px}.hero h2{margin:0 0 7px;font-size:23px}.hero p{margin:0;color:var(--muted);font-size:13px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px}.stat{padding:16px}.stat .label{color:var(--muted);font-size:11px}.stat .value{font-size:26px;font-weight:800;margin-top:4px}.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:15px}.card{padding:19px}.card h3{margin:0}.head{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:var(--muted);font-size:12px}.section-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;margin-bottom:16px}.section-head h2{margin:0;font-size:23px}.section-head p{margin:5px 0;color:var(--muted);font-size:13px}
+.primary,.secondary,.danger,.text-btn{border:0;border-radius:9px;padding:10px 14px;font-weight:700}.primary{background:var(--ink);color:#fff}.secondary{background:#eef0f3;color:#303943}.danger{background:#f9eeee;color:#a43737}.text-btn{background:transparent;color:#65707c;padding:6px 8px}.full{width:100%}
+.progress-row{padding:13px 0;border-bottom:1px solid #eef0f2}.progress-row:last-child{border-bottom:0}.p-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:7px}.bar{height:7px;border-radius:20px;background:#edf0f2;overflow:hidden}.bar i{display:block;height:100%;background:var(--ink);border-radius:20px}.activity{padding:11px 0;border-bottom:1px solid #eef0f2;font-size:12px}.activity:last-child{border:0}
+.subject-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.subject-card{padding:17px}.code{font-size:10px;font-weight:800;letter-spacing:.1em;color:#929aa4}.subject-card h3{margin:6px 0 12px;font-size:16px}.topic-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.tag{background:#eef1f4;border-radius:99px;padding:4px 8px;font-size:10px;color:#59636e}
+.filters{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:9px;margin-bottom:12px}select,input,textarea{border:1px solid #dce0e5;border-radius:9px;background:#fff;color:#26303a;padding:10px}textarea{resize:vertical}.question-card{padding:17px;margin-bottom:10px}.q-text{white-space:pre-wrap;line-height:1.55;font-size:13px}.choices{display:grid;gap:6px;margin-top:10px}.choice{border:1px solid #e2e5e8;border-radius:8px;padding:8px 10px;font-size:12px}.answer{margin-top:10px;background:#f0f6f2;border-radius:8px;padding:8px;font-size:11px;color:#35634b}.qmeta{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.source{font-size:10px;color:#8b939d}.empty{padding:35px;text-align:center;border:1px dashed #d3d8de;border-radius:11px;color:var(--muted)}
+.import-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.drop{border:1.5px dashed #cbd1d7;border-radius:11px;padding:38px 20px;text-align:center;cursor:pointer}.drop:hover{background:#fafbfc}.drop input{display:none}.drop .icon{font-size:26px}.paste{height:300px;width:100%;margin-top:8px}.settings{margin-top:15px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.formgrid label,.modal label{font-size:11px;color:#69727c;display:flex;flex-direction:column;gap:5px}.preview{margin-top:14px;border-top:1px solid #eef0f2;padding-top:10px}.preview-item{padding:12px 0;border-bottom:1px solid #eef0f2}.preview-item .pnum{font-weight:800;font-size:12px}.preview-item pre{white-space:pre-wrap;font:12px/1.5 Inter;margin:7px 0}.preview-item .answerok{color:var(--ok);font-weight:700;font-size:11px}.preview-item .answerno{color:#9b6262;font-size:11px}
+.quiz-config{display:grid;grid-template-columns:1.3fr 1.3fr 1fr auto;gap:9px;align-items:end}.quiz-config label{font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:5px}.quiz-info{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.quiz-card{max-width:850px;margin:auto}.quiz-card h2{font-size:20px;line-height:1.5;white-space:pre-wrap}.option{display:block;width:100%;text-align:left;border:1px solid #dfe3e7;background:#fff;border-radius:9px;padding:13px;margin:7px 0}.option:hover{background:#f6f7f9}.option.correct{border-color:#83b49c;background:#eef8f2}.option.wrong{border-color:#d79a9a;background:#fff1f1}.quiz-actions{display:flex;justify-content:space-between;margin-top:15px}.result{text-align:center}.score{font-size:36px;font-weight:800}.mastery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}.mastery{padding:14px}.mastery h4{margin:0 0 6px;font-size:13px}.mastery .big{font-size:24px;font-weight:800}.modal{position:fixed;inset:0;background:#0006;display:grid;place-items:center;padding:18px;z-index:10}.modal.hidden{display:none}.modal-box{width:min(440px,100%);background:#fff;border-radius:14px;padding:19px}.modal-box label{margin:13px 0}.iconbtn{border:0;background:transparent;font-size:22px}
+@media(max-width:850px){.sidebar{width:74px;padding:14px 8px}.brand{justify-content:center}.brand>div:last-child,.privacy{display:none}.nav{font-size:0;text-align:center}.nav:before{content:"•";font-size:22px}.main{padding:20px 16px}.stats{grid-template-columns:repeat(2,1fr)}.grid2,.import-grid{grid-template-columns:1fr}.hero{display:block}.hero .primary{margin-top:15px}.filters,.quiz-config,.formgrid{grid-template-columns:1fr}.section-head{align-items:flex-start}.top h1{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="mark">C</div><div><b>CPALE Review</b><small>Oct 24–26, 2026</small></div></div>
+  <nav>
+    <button class="nav active" data-page="dashboard">Dashboard</button>
+    <button class="nav" data-page="subjects">Subjects</button>
+    <button class="nav" data-page="bank">Question Bank</button>
+    <button class="nav" data-page="quiz">Quiz</button>
+    <button class="nav" data-page="progress">My Progress</button>
+    <button class="nav" data-page="import">Import Questions</button>
+  </nav>
+  <div class="privacy"><b>Review mode</b>Your data stays in this browser.</div>
+</aside>
+<main class="main">
+<header class="top"><div><p class="eyebrow">CPALE REVIEW</p><h1 id="pageTitle">Dashboard</h1></div><div class="exam"><strong id="daysLeft">—</strong><small>days to exam</small></div></header>
+
+<section class="page active" id="dashboard">
+ <div class="hero"><div><p class="eyebrow">YOUR REVIEW AT A GLANCE</p><h2>Build mastery, one question at a time.</h2><p>Import your materials, organize them by subject and topic, then practice exactly what you need.</p></div><button class="primary" onclick="showPage('import')">＋ Import questions</button></div>
+ <div class="stats" id="stats"></div>
+ <div class="grid2"><div class="card"><div class="head"><h3>Subject mastery</h3><button class="text-btn" onclick="showPage('progress')">View details</button></div><div id="subjectProgress"></div></div><div class="card"><div class="head"><h3>Recent activity</h3></div><div id="activity"></div></div></div>
+</section>
+
+<section class="page" id="subjects">
+ <div class="section-head"><div><h2>Subjects</h2><p>Create your own subject. Topics can be added while importing questions.</p></div><button class="primary" onclick="openSubjectModal()">＋ Add subject</button></div><div class="subject-grid" id="subjectList"></div>
+</section>
+
+<section class="page" id="bank">
+ <div class="section-head"><div><h2>Question Bank</h2><p>Filter by subject and topic. Duplicate questions are automatically skipped when importing.</p></div><button class="primary" onclick="showPage('import')">＋ Import</button></div>
+ <div class="filters"><select id="bankSubject" onchange="renderBank()"></select><select id="bankTopic" onchange="renderBank()"></select><input id="bankSearch" oninput="renderBank()" placeholder="Search question text…"></div>
+ <div id="bankList"></div>
+</section>
+
+<section class="page" id="quiz">
+ <div class="section-head"><div><h2>Quiz</h2><p>Practice one topic, mix selected topics, or shuffle the whole subject.</p></div></div>
+ <div class="card"><div class="quiz-config">
+   <label>Subject<select id="quizSubject" onchange="updateQuizTopics()"></select></label>
+   <label>Topic<select id="quizTopic"></select></label>
+   <label>Questions<input id="quizCount" type="number" min="1" value="10"></label>
+   <button class="primary" onclick="startQuiz()">Start quiz</button>
+ </div></div>
+ <div id="quizArea" style="margin-top:15px"></div>
+</section>
+
+<section class="page" id="progress">
+ <div class="section-head"><div><h2>My Progress</h2><p>See accuracy and mastery by subject and topic. Mastery is based on your recorded answers.</p></div></div>
+ <div class="stats" id="progressStats"></div>
+ <div class="card"><h3>Topic mastery</h3><div id="masteryGrid" class="mastery-grid" style="margin-top:12px"></div></div>
+</section>
+
+<section class="page" id="import">
+ <div class="section-head"><div><h2>Import Questions</h2><p>The importer separates numbered questions, removes repeated page headers/footers, detects A–D choices, detects answer-key patterns, and skips duplicates.</p></div></div>
+ <div class="import-grid">
+  <div class="card"><div class="drop" id="dropzone"><div class="icon">↑</div><h3>Upload a PDF</h3><p class="muted">Text-based PDFs work best. Scanned/image PDFs need OCR.</p><input id="pdfInput" type="file" accept="application/pdf"></div><p id="pdfStatus" class="muted"></p></div>
+  <div class="card"><label style="font-size:12px;font-weight:700">Or paste questions</label><textarea id="pasteInput" class="paste" placeholder="Paste the source text exactly as provided."></textarea></div>
+ </div>
+ <div class="card settings">
+  <div class="head"><div><h3>Import settings</h3><p class="muted">Choose a subject and optionally give the whole import a topic, such as Obligations.</p></div></div>
+  <div class="formgrid" style="margin-top:12px">
+   <label>Subject<select id="importSubject"></select></label>
+   <label>Topic for this import<input id="importTopic" placeholder="e.g. Obligations"></label>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:11px;flex-wrap:wrap"><button class="secondary" onclick="parsePaste()">Preview & separate questions</button><button class="primary" onclick="saveImported()">Save to question bank</button></div>
+  <div id="preview" class="preview empty">Nothing parsed yet.</div>
+ </div>
+</section>
+</main></div>
+
+<div id="modal" class="modal hidden"><div class="modal-box"><div class="head"><h3>Add subject</h3><button class="iconbtn" onclick="closeModal()">×</button></div><label>Subject name<input id="newSubject" placeholder="e.g. FAR"></label><label>Short code<input id="newCode" placeholder="FAR"></label><button class="primary full" onclick="addSubject()">Create subject</button></div></div>
+
+<script type="module">
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const KEY="cpale_review_v2";
+const defaults=[
+{id:"auditing",name:"Auditing",code:"AUD"},{id:"far",name:"Financial Accounting & Reporting",code:"FAR"},
+{id:"afar",name:"Advanced Financial Accounting & Reporting",code:"AFAR"},{id:"tax",name:"Taxation",code:"TAX"},
+{id:"rfbt",name:"Regulatory Framework for Business Transactions",code:"RFBT"},{id:"ms",name:"Management Services",code:"MS"}];
+let db=JSON.parse(localStorage.getItem(KEY)||"null")||{subjects:defaults,questions:[],attempts:[],activity:[]};
+let parsed=[],quizState=null;
+const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
+const uid=()=>crypto.randomUUID();
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const subj=id=>db.subjects.find(s=>s.id===id);
+const days=Math.max(0,Math.ceil((new Date("2026-10-24T00:00:00")-new Date())/86400000));
+$("#daysLeft").textContent=days;
+function showPage(id){$$(".page").forEach(p=>p.classList.toggle("active",p.id===id));$$(".nav").forEach(n=>n.classList.toggle("active",n.dataset.page===id));$("#pageTitle").textContent=id==="bank"?"Question Bank":id==="import"?"Import Questions":id==="progress"?"My Progress":id[0].toUpperCase()+id.slice(1); if(id==="dashboard")renderDashboard();if(id==="subjects")renderSubjects();if(id==="bank")renderBank();if(id==="quiz")setupQuiz();if(id==="progress")renderProgress();if(id==="import")setupImport();scrollTo(0,0)}
+$$(".nav").forEach(n=>n.onclick=()=>showPage(n.dataset.page));
+function stats(){let a=db.attempts,c=a.filter(x=>x.correct).length;return{answered:a.length,correct:c,accuracy:a.length?Math.round(c/a.length*100):0,questions:db.questions.length}}
+function renderDashboard(){
+ let s=stats();$("#stats").innerHTML=`<div class="stat"><div class="label">Questions</div><div class="value">${s.questions}</div></div><div class="stat"><div class="label">Answered</div><div class="value">${s.answered}</div></div><div class="stat"><div class="label">Accuracy</div><div class="value">${s.accuracy}%</div></div><div class="stat"><div class="label">Subjects</div><div class="value">${db.subjects.length}</div></div>`;
+ $("#subjectProgress").innerHTML=db.subjects.map(x=>{let qs=db.questions.filter(q=>q.subjectId===x.id),at=db.attempts.filter(a=>qs.some(q=>q.id===a.qid)),ok=at.filter(a=>a.correct).length,acc=at.length?Math.round(ok/at.length*100):0;return `<div class="progress-row"><div class="p-label"><span>${esc(x.name)}</span><span>${acc}% · ${at.length} answered</span></div><div class="bar"><i style="width:${acc}%"></i></div></div>`}).join("")||'<div class="empty">No subjects.</div>';
+ $("#activity").innerHTML=db.activity.slice(-8).reverse().map(a=>`<div class="activity">${esc(a.text)}<div class="muted">${new Date(a.time).toLocaleString()}</div></div>`).join("")||'<div class="empty">No activity yet.</div>';
+}
+function renderSubjects(){$("#subjectList").innerHTML=db.subjects.map(s=>{let qs=db.questions.filter(q=>q.subjectId===s.id),topics=[...new Set(qs.map(q=>q.topic).filter(Boolean))];return `<div class="card subject-card"><div class="code">${esc(s.code)}</div><h3>${esc(s.name)}</h3><div class="muted">${qs.length} questions · ${topics.length} topics</div>${topics.length?`<div class="topic-list">${topics.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`:""}</div>`}).join("")}
+function fillSelect(sel,items,firstLabel){let old=sel.value;sel.innerHTML=firstLabel+items.map(x=>`<option value="${esc(x.value)}">${esc(x.label)}</option>`).join("");if(items.some(x=>x.value===old))sel.value=old}
+function renderBank(){
+ let bs=$("#bankSubject"),bt=$("#bankTopic"),oldS=bs.value||"all",oldT=bt.value||"all";
+ fillSelect(bs,[...db.subjects.map(s=>({value:s.id,label:s.code+" — "+s.name}))],'<option value="all">All subjects</option>');
+ if([...bs.options].some(o=>o.value===oldS))bs.value=oldS; else bs.value="all";
+ let topics=[...new Set(db.questions.filter(q=>bs.value==="all"||q.subjectId===bs.value).map(q=>q.topic).filter(Boolean))].sort();
+ fillSelect(bt,topics.map(t=>({value:t,label:t})),'<option value="all">All topics</option>');
+ if([...bt.options].some(o=>o.value===oldT))bt.value=oldT; else bt.value="all";
+ let term=($("#bankSearch").value||"").toLowerCase();
+ let qs=db.questions.filter(q=>(bs.value==="all"||q.subjectId===bs.value)&&(bt.value==="all"||q.topic===bt.value)&&q.text.toLowerCase().includes(term));
+ $("#bankList").innerHTML=qs.length?qs.map(q=>`<div class="card question-card"><div class="head"><div class="qmeta"><span class="tag">${esc(subj(q.subjectId)?.code||"")}</span>${q.topic?`<span class="tag">${esc(q.topic)}</span>`:""}<span class="source">${esc(q.source||"")}</span></div><button class="text-btn" onclick="deleteQuestion('${q.id}')">Delete</button></div><div class="q-text">${esc(q.text)}</div>${q.choices?.length?`<div class="choices">${q.choices.map(c=>`<div class="choice">${esc(c)}</div>`).join("")}</div>`:""}${q.answer?`<div class="answer"><b>Correct answer:</b> ${esc(q.answer)}</div>`:""}</div>`).join(""):'<div class="empty">No questions match these filters.</div>';
+}
+window.deleteQuestion=id=>{db.questions=db.questions.filter(q=>q.id!==id);save();renderBank();renderDashboard();};
+function topicsFor(sid){return [...new Set(db.questions.filter(q=>q.subjectId===sid).map(q=>q.topic).filter(Boolean))].sort()}
+function setupQuiz(){let old=$("#quizSubject")?.value;fillSelect($("#quizSubject"),db.subjects.map(s=>({value:s.id,label:s.code+" — "+s.name})),"");if(old&&[...$("#quizSubject").options].some(o=>o.value===old))$("#quizSubject").value=old;updateQuizTopics()}
+window.updateQuizTopics=()=>{let sid=$("#quizSubject").value, old=$("#quizTopic").value;let ts=topicsFor(sid);fillSelect($("#quizTopic"),ts.map(t=>({value:t,label:t})),'<option value="all">All topics / shuffle</option>');if(old&&[...$("#quizTopic").options].some(o=>o.value===old))$("#quizTopic").value=old;};
+window.startQuiz=()=>{
+ let sid=$("#quizSubject").value,topic=$("#quizTopic").value,n=Math.max(1,+$("#quizCount").value||10);
+ let pool=db.questions.filter(q=>q.subjectId===sid&&(topic==="all"||q.topic===topic)).sort(()=>Math.random()-.5).slice(0,n);
+ if(!pool.length){$("#quizArea").innerHTML='<div class="empty">No questions for this subject/topic yet.</div>';return}
+ quizState={pool,index:0,score:0};renderQ();
+};
+function renderQ(){let q=quizState.pool[quizState.index];$("#quizArea").innerHTML=`<div class="card quiz-card"><div class="quiz-info"><span class="tag">${esc(subj(q.subjectId)?.code)}</span>${q.topic?`<span class="tag">${esc(q.topic)}</span>`:""}<span class="muted">${quizState.index+1} / ${quizState.pool.length}</span></div><h2>${esc(q.text)}</h2><div>${(q.choices||[]).map((c,i)=>`<button class="option" onclick="answerQ(${i},this)">${esc(c)}</button>`).join("")}</div><div class="quiz-actions"><span class="muted">Your progress is saved automatically.</span></div></div>`}
+window.answerQ=(i,btn)=>{let q=quizState.pool[quizState.index];$$(".option").forEach(b=>b.disabled=true);let letter=String.fromCharCode(65+i),ans=(q.answer||"").toUpperCase().trim(),correct=ans===letter||ans.startsWith(letter+".")||ans.startsWith(letter+")")||ans.includes(" "+letter+" ");if(q.answer){btn.classList.add(correct?"correct":"wrong");$$(".option")[["A","B","C","D"].indexOf((q.answer||"").toUpperCase().charAt(0))]?.classList.add("correct");db.attempts.push({qid:q.id,correct,time:Date.now()});db.activity.push({time:Date.now(),text:`${correct?"Correct":"Incorrect"} — ${subj(q.subjectId)?.code||""}${q.topic?" / "+q.topic:""}`);save()}setTimeout(()=>{quizState.score+=correct?1:0;quizState.index++;if(quizState.index<quizState.pool.length)renderQ();else{$("#quizArea").innerHTML=`<div class="card result"><div class="score">${quizState.score}/${quizState.pool.length}</div><p>Quiz complete.</p><button class="primary" onclick="showPage('progress')">See my progress</button></div>`;renderDashboard()}},500)}
+function renderProgress(){let s=stats();$("#progressStats").innerHTML=`<div class="stat"><div class="label">Questions answered</div><div class="value">${s.answered}</div></div><div class="stat"><div class="label">Correct</div><div class="value">${s.correct}</div></div><div class="stat"><div class="label">Overall accuracy</div><div class="value">${s.accuracy}%</div></div><div class="stat"><div class="label">Question bank</div><div class="value">${s.questions}</div></div>`;
+ let groups=[];for(let q of db.questions){let key=q.subjectId+"||"+(q.topic||"No topic"),at=db.attempts.filter(a=>a.qid===q.id),ok=at.filter(a=>a.correct).length;groups.push({key,subject:subj(q.subjectId)?.code||"",topic:q.topic||"No topic",n:1,attempts:at.length,accuracy:at.length?Math.round(ok/at.length*100):0})}
+ let map=new Map();groups.forEach(g=>{let m=map.get(g.key)||{...g,n:0,attempts:0,correct:0};m.n++;m.attempts+=g.attempts;m.correct+=g.accuracy*g.attempts/100;map.set(g.key,m)});
+ $("#masteryGrid").innerHTML=[...map.values()].map(m=>{let acc=m.attempts?Math.round(m.correct/m.attempts*100):0;return `<div class="card mastery"><h4>${esc(m.subject)} · ${esc(m.topic)}</h4><div class="big">${acc}%</div><div class="muted">${m.attempts} answered · ${m.n} questions</div><div class="bar" style="margin-top:9px"><i style="width:${acc}%"></i></div></div>`}).join("")||'<div class="empty">Answer some questions to see topic mastery.</div>'}
+function setupImport(){fillSelect($("#importSubject"),db.subjects.map(s=>({value:s.id,label:s.code+" — "+s.name})),"");if(!$("#importSubject").value&&db.subjects[0])$("#importSubject").value=db.subjects[0].id}
+window.openSubjectModal=()=>$("#modal").classList.remove("hidden");window.closeModal=()=>$("#modal").classList.add("hidden");
+window.addSubject=()=>{let name=$("#newSubject").value.trim(),code=($("#newCode").value.trim()||name.slice(0,4)).toUpperCase();if(!name)return;db.subjects.push({id:uid(),name,code});db.activity.push({time:Date.now(),text:`Created subject ${name}`});save();$("#newSubject").value="";$("#newCode").value="";closeModal();renderSubjects();renderDashboard();setupImport();setupQuiz()};
+
+function cleanExtracted(raw){
+ raw=raw.replace(/\r/g,"").replace(/\u00a0/g," ");
+ // Remove repeated page labels / common review headers without touching question text.
+ raw=raw.replace(/LACO\s+CPA\s+Review\s+\d+\s*\|\s*Page\s*[\s\S]*?(?=(?:\n|\s)\d{1,4}\.\s)/gi,"");
+ raw=raw.replace(/Page\s+\d+\s+of\s+\d+/gi,"");
+ raw=raw.replace(/\n{3,}/g,"\n\n");
+ return raw.trim();
+}
+function normalizeForDup(s){return s.toLowerCase().replace(/\s+/g," ").replace(/[^\p{L}\p{N}]/gu,"").trim()}
+function parseAnswerKeys(raw){
+ let map=new Map();
+ // Handles: 567. C, 567 C, 567 - C, 567. C. Legal obligation
+ for(const m of raw.matchAll(/(?:^|\s)(\d{1,4})\s*[\.\)\-:]?\s*([A-D])(?:\s*[\.\)\-:]|\s|$)/gmi)){let n=+m[1],a=m[2].toUpperCase();if(n>=1&&n<=9999)map.set(n,a)}
+ for(const m of raw.matchAll(/(?:answer|ans|correct)\s*(?:key)?\s*[:\-]?\s*(\d{1,4})\s*[\.\)\-:]?\s*([A-D])/gmi))map.set(+m[1],m[2].toUpperCase());
+ return map;
+}
+function parseQuestions(raw){
+ raw=cleanExtracted(raw);
+ let keyMap=parseAnswerKeys(raw);
+ // Question starts are numbers followed by period/paren/colon. Require a reasonable question-like suffix.
+ let re=/(?:^|\n|\s)(\d{1,4})\s*[\.\)]\s+(?=[A-Z“"'(])/g;
+ let starts=[...raw.matchAll(re)].map(m=>({n:+m[1],idx:m.index+(m[0].startsWith("\n")?1:m[0].startsWith(" ")?1:0)}));
+ // Prefer monotonically increasing question numbers to avoid numbers in headers/addresses.
+ let filtered=[];let last=-1;for(let s of starts){if(s.n>last && s.n<10000){filtered.push(s);last=s.n}}
+ if(filtered.length<1){
+   // fallback: split on explicit Question labels
+   let chunks=raw.split(/(?=Question\s*\d+\s*[:.)])/i).filter(Boolean);
+   return chunks.map((text,i)=>buildQuestion(text,i+1,keyMap.get(i+1)));
+ }
+ let out=[];
+ for(let i=0;i<filtered.length;i++){let start=filtered[i].idx,end=i+1<filtered.length?filtered[i+1].idx:raw.length;let block=raw.slice(start,end).trim();out.push(buildQuestion(block,filtered[i].n,keyMap.get(filtered[i].n)))}
+ return out.filter(q=>q.text.length>10);
+}
+function buildQuestion(block,num,keyAnswer){
+ // Remove a leading number and clean page noise around it.
+ block=block.replace(/^\d{1,4}\s*[\.\)]\s*/,"").trim();
+ let answerMatch=block.match(/(?:answer|ans(?:wer)?|correct\s*answer)\s*[:\-]\s*([A-D])(?:\b|[\.\)])/i);
+ let answer=(answerMatch?answerMatch[1]:keyAnswer||"").toUpperCase();
+ // Locate first A-D choice and split choices without rewriting their text.
+ let choiceMatches=[...block.matchAll(/(?:^|\n|\s)([A-D])\s*[\.\)]\s+/g)];
+ let choices=[];
+ if(choiceMatches.length>=2){
+   let qEnd=choiceMatches[0].index+(choiceMatches[0][0].startsWith("\n")?1:choiceMatches[0][0].startsWith(" ")?1:0);
+   let questionText=block.slice(0,qEnd).trim();
+   for(let i=0;i<choiceMatches.length;i++){let st=choiceMatches[i].index+(choiceMatches[i][0].startsWith("\n")?1:choiceMatches[i][0].startsWith(" ")?1:0),en=i+1<choiceMatches.length?choiceMatches[i+1].index:block.length;let letter=choiceMatches[i][1].toUpperCase();let txt=block.slice(st,en).replace(/^\s*[A-D]\s*[\.\)]\s*/,"").trim();choices.push(`${letter}. ${txt}`)}
+   block=questionText;
+ } else {
+   // Flattened PDF extraction can have choices separated by spaces.
+   let flat=[...block.matchAll(/(?:^|\s)([A-D])\.\s+/g)];
+   if(flat.length>=2){
+     let qEnd=flat[0].index+(flat[0][0].startsWith(" ")?1:0);let qt=block.slice(0,qEnd).trim();for(let i=0;i<flat.length;i++){let st=flat[i].index+(flat[i][0].startsWith(" ")?1:0),en=i+1<flat.length?flat[i+1].index:block.length;let letter=flat[i][1];choices.push(`${letter}. ${block.slice(st,en).replace(/^[A-D]\.\s*/,"").trim()}`)}block=qt;
+   }
+ }
+ block=block.replace(/(?:answer|ans(?:wer)?|correct\s*answer)\s*[:\-]\s*[A-D].*$/i,"").trim();
+ return {id:uid(),number:num,text:block,choices,answer,topic:""};
+}
+function showPreview(){if(!parsed.length){$("#preview").className="preview empty";$("#preview").textContent="Nothing parsed yet.";return}$("#preview").className="preview";$("#preview").innerHTML=`<div class="muted" style="margin-bottom:8px">${parsed.length} question(s) detected. ${parsed.filter(q=>q.answer).length} answer(s) detected. Duplicate questions will be skipped on save.</div>`+parsed.map((q,i)=>`<div class="preview-item"><div class="pnum">${q.number}. ${q.answer?`<span class="answerok">Answer: ${esc(q.answer)}</span>`:`<span class="answerno">Answer not detected</span>`}</div><pre>${esc(q.text)}${q.choices.length?"\n"+q.choices.join("\n"):""}</pre></div>`).join("")}
+window.parsePaste=()=>{parsed=parseQuestions($("#pasteInput").value);let topic=$("#importTopic").value.trim();parsed.forEach(q=>q.topic=topic);showPreview()};
+window.saveImported=()=>{if(!parsed.length){alert("Preview the text first.");return}let sid=$("#importSubject").value,topic=$("#importTopic").value.trim(),added=0,dupes=0;for(let q of parsed){q.subjectId=sid;q.topic=topic||q.topic||"";q.source="Imported";let sig=normalizeForDup(q.text+" "+q.choices.join(" "));let exists=db.questions.some(x=>x.subjectId===sid&&normalizeForDup(x.text+" "+x.choices.join(" "))===sig);if(exists){dupes++;continue}db.questions.push(q);added++}db.activity.push({time:Date.now(),text:`Imported ${added} questions; skipped ${dupes} duplicates`});save();parsed=[];$("#pasteInput").value="";$("#pdfInput").value="";$("#pdfStatus").textContent="";showPreview();renderDashboard();alert(`Saved ${added} new question(s). Skipped ${dupes} duplicate(s).`)};
+
+$("#dropzone").onclick=e=>{if(e.target.tagName!=="INPUT")$("#pdfInput").click()};
+$("#pdfInput").addEventListener("change",async e=>{let file=e.target.files[0];if(!file)return;$("#pdfStatus").textContent="Extracting PDF text…";try{let pdfjs=await import("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs");pdfjs.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";let pdf=await pdfjs.getDocument({data:await file.arrayBuffer()}).promise,raw="";for(let p=1;p<=pdf.numPages;p++){let page=await pdf.getPage(p),c=await page.getTextContent();raw+=c.items.map(x=>x.str).join(" ")+"\n"}$("#pasteInput").value=raw;parsed=parseQuestions(raw);parsed.forEach(q=>q.topic=$("#importTopic").value.trim());showPreview();$("#pdfStatus").textContent=`Extracted ${pdf.numPages} page(s). ${parsed.length} question(s) detected.`}catch(err){console.error(err);$("#pdfStatus").textContent="PDF extraction failed. If it is scanned/image-only, OCR is required; otherwise paste the text."}});
+renderDashboard();setupImport();setupQuiz();
+</script>
+</body></html>
