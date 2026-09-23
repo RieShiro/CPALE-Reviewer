@@ -227,7 +227,14 @@ async function smartPdf(file){
  }
  return {questions:all,pages:pdf.numPages};
 }
-$("#pdfInput").addEventListener("change",async e=>{const file=e.target.files[0];if(!file)return;$("#pdfStatus").textContent="Reading PDF layout and answer formatting…";try{const r=await smartPdf(file);parsed=r.questions;preview();$("#pdfStatus").textContent=`Read ${r.pages} page(s) and detected ${parsed.length} question(s).`;$("#pdfNotice").innerHTML="<div class=\"notice\">Answers are detected from explicit answer keys, exposed bold formatting, or PDF highlight annotations. If no clear marker exists, the question stays unkeyed rather than being guessed.</div>"}catch(err){console.error(err);$("#pdfStatus").textContent="Could not analyze this PDF. Try a text-based PDF or paste the text."}});
+$("#pdfInput").addEventListener("change",async e=>{const file=e.target.files[0];if(!file)return;$("#pdfStatus").textContent="Reading PDF layout and answer formatting…";try{const r=await smartPdf(file);parsed=r.questions;showPreview();$("#pdfStatus").textContent=`Read ${r.pages} page(s) and detected ${parsed.length} question(s).`;$("#pdfNotice").innerHTML="<div class=\"notice\">Answers are detected from explicit answer keys, exposed bold formatting, or PDF highlight annotations. If no clear marker exists, the question stays unkeyed rather than being guessed.</div>"}catch(err){console.error(err);$("#pdfStatus").textContent="Could not analyze this PDF. Try a text-based PDF or paste the text."}});
 renderDashboard();setupImport();setupQuiz();
+window.showPage=showPage;
+window.renderDashboard=renderDashboard;
+window.renderSubjects=renderSubjects;
+window.renderBank=renderBank;
+window.renderProgress=renderProgress;
+window.setupQuiz=setupQuiz;
+window.setupImport=setupImport;
 </script>
 </body></html>
