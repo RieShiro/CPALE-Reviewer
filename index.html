@@ -114,7 +114,19 @@ const defaults=[
 {id:"auditing",name:"Auditing",code:"AUD"},{id:"far",name:"Financial Accounting & Reporting",code:"FAR"},
 {id:"afar",name:"Advanced Financial Accounting & Reporting",code:"AFAR"},{id:"tax",name:"Taxation",code:"TAX"},
 {id:"rfbt",name:"Regulatory Framework for Business Transactions",code:"RFBT"},{id:"ms",name:"Management Services",code:"MS"}];
-let db=JSON.parse(localStorage.getItem(KEY)||"null")||{subjects:defaults,questions:[],attempts:[],activity:[]};
+let db;
+try{
+  const raw=localStorage.getItem(KEY);
+  db=raw?JSON.parse(raw):null;
+}catch(e){
+  console.warn("Resetting unreadable CPALE review data",e);
+  db=null;
+}
+if(!db||typeof db!=="object")db={subjects:defaults,questions:[],attempts:[],activity:[]};
+if(!Array.isArray(db.subjects)||!db.subjects.length)db.subjects=defaults;
+if(!Array.isArray(db.questions))db.questions=[];
+if(!Array.isArray(db.attempts))db.attempts=[];
+if(!Array.isArray(db.activity))db.activity=[];
 let parsed=[],quizState=null;
 const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
 const uid=()=>crypto.randomUUID();
