@@ -89,6 +89,24 @@
 
 <div id="modal" class="modal hidden"><div class="modal-box"><div class="head"><h3>Add subject</h3><button class="iconbtn" onclick="closeModal()">×</button></div><label>Subject name<input id="newSubject" placeholder="e.g. FAR"></label><label>Short code<input id="newCode" placeholder="FAR"></label><button class="primary full" onclick="addSubject()">Create subject</button></div></div>
 
+<script>
+(function(){
+  function bootNav(){
+    var pages=[].slice.call(document.querySelectorAll('.page'));
+    var navs=[].slice.call(document.querySelectorAll('.nav'));
+    function go(id){
+      pages.forEach(function(p){p.classList.toggle('active',p.id===id);});
+      navs.forEach(function(n){n.classList.toggle('active',n.getAttribute('data-page')===id);});
+      var titles={bank:'Question Bank',import:'Import Questions',progress:'My Progress'};
+      var t=document.getElementById('pageTitle'); if(t)t.textContent=titles[id]||(id.charAt(0).toUpperCase()+id.slice(1));
+      window.scrollTo(0,0);
+    }
+    navs.forEach(function(n){n.addEventListener('click',function(){go(n.getAttribute('data-page'));});});
+    window.__cpaleGo=go;
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootNav);else bootNav();
+})();
+</script>
 <script type="module">
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const KEY="cpale_review_v2";
